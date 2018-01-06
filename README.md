@@ -1,5 +1,5 @@
 # Udacity-Linux-Server-Configuration
-#### Final project for the Udacity FSND
+>Final project for the Udacity FSND
 
 ## Project Overview
 Take a baseline installation of a Linux server and prepare it to host a web application. Secure the server from a number of attack vectors, install and configure a database server, and deploy an existing web applications onto it.
@@ -43,9 +43,31 @@ Take a baseline installation of a Linux server and prepare it to host a web appl
     1. `sudo su - grader`
 4. Create ssh directory
     1. `mkdir .ssh`
-5. Create directory for key within ssh
-    1. `mkdir .ssh/authorized_keys`
+5. Create authorized keys file
+    1. `touch .ssh/authorized_keys`
 6. Edit permissions
     1. `chmod 700 .ssh`
     2. `chmod 600 .ssh/authorized_keys`
-7. 
+7. Generate a key pair **locally** using `ssh-keygen`
+8. Add public key to the `authorized_keys` file
+    1. `sudo nano .ssh/authorized_keys`
+9. Add ports 2200 and 123 on your instance's Networking tab
+10. Change the ssh port to 2200
+    1. `sudo nano /etc/ssh/sshd_config`
+    2. Set options
+        1. `Port 2200`
+        2. `PasswordAuthentication no`
+        3. `PermitRootLogin no`
+11. Restart ssh
+    1. `sudo service ssh restart`
+12. Configure UFW
+    1. `sudo ufw default deny incoming`
+    2. `sudo ufw default allow outgoing`
+    3. `sudo ufw allow www`
+    4. `sudo ufw allow 2200/tcp`
+    5. `sudo ufw allow ntp`
+    6. `sudo ufw enable` (this may boot you out of the virtual machine, but that's ok!)
+13. Login to the instance locally
+    1. `ssh grader@54.186.86.189 -i <location of private key> -p 2200`
+        
+
