@@ -131,8 +131,53 @@ Take a baseline installation of a Linux server and prepare it to host a web appl
     1. `/var/www/ItemCatalog/ItemCatalog/client_secrets.json`
 5. Update `client_secrets.json` with new redirect url
 6. Update OAuth client in the Google Console with new url
+7. Run `dbsetup.py` & `starterdata.py`
+    1. `sudo python dbsetup.py`
+    2. `sudo python starterdata.py`
     
+### Configure Apache/WSGI
+1. Create ItemCatalog Apache configuration
+    1. `sudo nano /etc/apache2/sites-available/ItemCatalog.conf`
+    2. Add configuration
     
-    
+    ```
+    <VirtualHost *:80>
+        ServerName 54.186.86.189
+        ServerAdmin admin@server.com
+        WSGIScriptAlias / /var/www/ItemCatalog/itemcatalog.wsgi
+        <Directory /var/www/ItemCatalog/ItemCatalog/>
+                Order allow,deny
+                Allow from all
+        </Directory>
+        Alias /static /var/www/ItemCatalog/ItemCatalog/static
+        <Directory /var/www/ItemCatalog/ItemCatalog/static/>
+                Order allow,deny
+                Allow from all
+        </Directory>
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        LogLevel warn
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+    </VirtualHost>
+    ```
+2. Enable the virtual host
+    1. `sudo a2ensite ItemCatalog`
+3. Reload apache
+    1. `sudo service apache2 reload`
+4. Create WSGI file
+    1. `cd /var/www/ItemCatalog`
+    2. `sudo nano itemcatalog.wsgi`
+5. Configure WSGI file
+
+    ```
+    #!/usr/bin/python
+    import sys
+    import logging
+    logging.basicConfig(stream=sys.stderr)
+    sys.path.insert(0,"/var/www/ItemCatalog/")
+
+    from ItemCatalog import app as application
+    ```
+6. Restart apache
+    1. `sudo service apache2 restart`
     
     
