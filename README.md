@@ -120,3 +120,19 @@ Take a baseline installation of a Linux server and prepare it to host a web appl
     1. `exit`
 8. Install psycopg2
     1. `sudo apt-get install postgresql python-psycopg2`
+
+### Modify ItemCatalog files
+1. `cd /var/www/ItemCatalog/ItemCatalog`
+2. Rename `views.py` to `__init__.py`
+    1. `sudo mv views.py __init__.py`
+3. Update database connection in `__init__.py`, `dbsetup.py`, & `starterdata.py`
+    1. `create_engine('postgresql://catalog:password@localhost/catalog')`
+4. Update `client_secrets.json` path in `__init__.py`
+    1. `/var/www/ItemCatalog/ItemCatalog/client_secrets.json`
+5. Update `client_secrets.json` with new redirect url
+6. Update OAuth client in the Google Console with new url
+    
+    
+    
+    
+    
