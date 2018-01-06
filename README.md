@@ -70,4 +70,53 @@ Take a baseline installation of a Linux server and prepare it to host a web appl
 13. Login to the instance locally
     1. `ssh grader@54.186.86.189 -i <location of private key> -p 2200`
         
+### Install Apache & WSGI
+1. `sudo apt-get install apache2`
+2. `sudo apt-get install libapache2-mod-wsgi python-dev`
+3. Ensure wsgi is enabled
+    1. `sudo a2enmod wsgi`
+4. Restart apache
+    1. `sudo service apache2 restart`
+    
+### Import the ItemCatalog application
+1. Install git
+    1. `sudo apt-get install git-all`
+2. Create a directory for the application
+    1. `cd /var/www`
+    2. `sudo mkdir ItemCatalog`
+3. Clone ItemCatalog into the new directory
+    1. `cd /var/www/ItemCatalog`
+    2. `git clone https://github.com/benwelt/ItemCatalog.git`
+    
+### Install Flask and other required packages
+1. `sudo apt-get install python-pip`
+2. Use virtualenv to install packages for this application
+    1. `sudo pip install virtualenv`
+    2. `sudo virualenv catalog`
+    3. `source catalog/bin/activate`
+3. `sudo pip install Flask`
+4. `sudo pip install sqlalchemy`
+5. `sudo pip install oauth2client`
+6. `sudo pip install requests`
+7. Deactivate virtualenv
+    1. `deactivate`
 
+### Install & Setup PostgreSQL
+1. `sudo apt-get install postgresql`
+2. Check the there are no remote connections allowed
+    1. `sudo nano /etc/postgresql/9.5/main/pg_hba.conf`
+3. Login to the postgres user
+    1. `sudo su - postgres`
+4. Enter psql
+    1. `psql`
+5. Create a new database and user with privileges
+    1. `CREATE DATABASE catalog;`
+    2. `CREATE USER catalog;`
+    3. `ALTER ROLE catalog WITH PASSWORD 'password';`
+    4. `GRANT ALL PRIVILEGES ON DATABASE catalog TO catalog;`
+6. Quit psql
+    1. `\q`
+7. Logout of postgres
+    1. `exit`
+8. Install psycopg2
+    1. `sudo apt-get install postgresql python-psycopg2`
