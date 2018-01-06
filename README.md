@@ -4,6 +4,8 @@
 ## Project Overview
 Take a baseline installation of a Linux server and prepare it to host a web application. Secure the server from a number of attack vectors, install and configure a database server, and deploy an existing web applications onto it.
 
+Visit http://54.186.86.189 to view the deployed application.
+
 ## Project Objectives
 * Create a Ubuntu Linux Server instance on [Amazon Lightsail](https://lightsail.aws.amazon.com)
 * Change the SSH Port and configure the Lightsail Firewall & UFW
@@ -180,4 +182,11 @@ Take a baseline installation of a Linux server and prepare it to host a web appl
 6. Restart apache
     1. `sudo service apache2 restart`
     
-    
+---
+
+# Sources
+* https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps
+* http://flask.pocoo.org/docs/0.12/installation/#virtualenv
+* http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/
+* https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-postgresql-8bfcd2f4a91e
+* https://help.ubuntu.com/community/PostgreSQL
